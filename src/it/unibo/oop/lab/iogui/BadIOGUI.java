@@ -5,14 +5,22 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.util.Random;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import java.nio.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * This class is a simple application that writes a random number on a file.
@@ -36,11 +44,16 @@ public class BadIOGUI {
      */
     public BadIOGUI() {
         final JPanel canvas = new JPanel();
-        canvas.setLayout(new BorderLayout());
-        final JButton write = new JButton("Write on file");
-        canvas.add(write, BorderLayout.CENTER);
+        canvas.setLayout(new BorderLayout()); 
+        final JPanel nPanel = new JPanel();
+        BoxLayout bLayout = new BoxLayout(nPanel, BoxLayout.X_AXIS);
+        nPanel.setLayout(bLayout);
+        canvas.add(nPanel,BorderLayout.CENTER);
         frame.setContentPane(canvas);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        final JButton write = new JButton("write");
+        nPanel.add(write,BorderLayout.CENTER);
+        final JButton read = new JButton("read");
+        nPanel.add(read);
         /*
          * Handlers
          */
@@ -62,6 +75,20 @@ public class BadIOGUI {
                 }
             }
         });
+        read.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Read button was pressed");
+                //From java.nio
+                try(BufferedReader buffer = Files.newBufferedReader(Paths.get(PATH))) {
+                    String line;
+                    while ((line = buffer.readLine()) != null) {
+                        System.out.println(line);
+                    }
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+               }
+        });
     }
 
     private void display() {
@@ -82,6 +109,7 @@ public class BadIOGUI {
          * flag makes the OS window manager take care of the default positioning
          * on screen. Results may vary, but it is generally the best choice.
          */
+        frame.pack();
         frame.setLocationByPlatform(true);
         /*
          * OK, ready to pull the frame onscreen

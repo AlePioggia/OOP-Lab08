@@ -10,9 +10,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  * This class is a simple application that writes a random number on a file.
@@ -33,20 +35,28 @@ public class MiniGUI {
      */
     public MiniGUI() {
         final JPanel canvas = new JPanel();
-        canvas.setLayout(new BorderLayout());
-        final JButton write = new JButton("Print a random number on standard output");
-        canvas.add(write, BorderLayout.CENTER);
+        canvas.setLayout(new BorderLayout()); 
+        final JPanel nPanel = new JPanel();
+        BoxLayout bLayout = new BoxLayout(nPanel, BoxLayout.X_AXIS);
+        nPanel.setLayout(bLayout);
+        canvas.add(nPanel,BorderLayout.CENTER);
         frame.setContentPane(canvas);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        final JButton write = new JButton("random");
+        nPanel.add(write,BorderLayout.CENTER);
+        //text
+        final JTextField text = new JTextField();
+        canvas.add(text,BorderLayout.NORTH);
+        frame.setContentPane(canvas);
         /*
          * Handlers
          */
         write.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(final ActionEvent e) {
-                System.out.println(rng.nextInt());
+                var rand = rng.nextDouble();
+                text.setText("res" + rand);
+                System.out.println(rand);
             }
-        });
+        }); 
     }
 
     private void display() {
@@ -67,6 +77,7 @@ public class MiniGUI {
          * flag makes the OS window manager take care of the default positioning
          * on screen. Results may vary, but it is generally the best choice.
          */
+        frame.pack();
         frame.setLocationByPlatform(true);
         /*
          * OK, ready to pull the frame onscreen
