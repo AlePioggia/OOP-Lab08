@@ -65,7 +65,7 @@ public final class SimpleGUI {
     }
     
     public static void main(String[] s) {
-        SimpleGUI gui = new SimpleGUI(new Controller());
+        new SimpleGUI(new Controller());
      }
 
 }
