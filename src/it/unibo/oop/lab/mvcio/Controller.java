@@ -1,10 +1,23 @@
 package it.unibo.oop.lab.mvcio;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import it.unibo.oop.lab.iogui.BadIOGUI;
+
 /**
  * 
  */
 public class Controller {
-
+    //This sets the default file
+    private File currentFile = new File( System.getProperty("user.home")
+            + System.getProperty("file.separator") 
+            + "Output.txt");
     /*
      * This class must implement a simple controller responsible of I/O access. It
      * considers a single file at a time, and it is able to serialize objects in it.
@@ -12,14 +25,34 @@ public class Controller {
      * Implement this class with:
      * 
      * 1) A method for setting a File as current file
-     * 
+     */
+     public void setFile(File file) {
+         this.currentFile = file;
+     }
+      /*
      * 2) A method for getting the current File
-     * 
+     */
+     public File getFile() {
+         return this.currentFile;
+     }
+     /*
      * 3) A method for getting the path (in form of String) of the current File
-     * 
+     */
+     public String getPath() {
+         return this.getFile().getPath();
+     }
+     /*
      * 4) A method that gets a String as input and saves its content on the current
      * file. This method may throw an IOException.
-     * 
+     */
+     public void writeOnCurrentFile(String s) {
+         try(BufferedWriter iBuffer = Files.newBufferedWriter(Paths.get(this.getPath()))) {
+             iBuffer.write(s);
+         } catch (IOException e) {
+             e.printStackTrace();
+         }
+     }
+     /* 
      * 5) By default, the current file is "output.txt" inside the user home folder.
      * A String representing the local user home folder can be accessed using
      * System.getProperty("user.home"). The separator symbol (/ on *nix, \ on

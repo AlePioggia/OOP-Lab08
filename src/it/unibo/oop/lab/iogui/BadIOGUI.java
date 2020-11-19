@@ -78,7 +78,6 @@ public class BadIOGUI {
         read.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Read button was pressed");
-                //From java.nio
                 try(BufferedReader buffer = Files.newBufferedReader(Paths.get(PATH))) {
                     String line;
                     while ((line = buffer.readLine()) != null) {
