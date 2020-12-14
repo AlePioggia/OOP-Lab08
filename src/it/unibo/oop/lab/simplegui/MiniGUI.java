@@ -39,13 +39,13 @@ public class MiniGUI {
         final JPanel nPanel = new JPanel();
         BoxLayout bLayout = new BoxLayout(nPanel, BoxLayout.X_AXIS);
         nPanel.setLayout(bLayout);
-        canvas.add(nPanel,BorderLayout.CENTER);
+        canvas.add(nPanel, BorderLayout.CENTER);
         frame.setContentPane(canvas);
         final JButton write = new JButton("random");
-        nPanel.add(write,BorderLayout.CENTER);
+        nPanel.add(write, BorderLayout.CENTER);
         //text
         final JTextField text = new JTextField();
-        canvas.add(text,BorderLayout.NORTH);
+        canvas.add(text, BorderLayout.NORTH);
         frame.setContentPane(canvas);
         /*
          * Handlers

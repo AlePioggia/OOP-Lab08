@@ -11,7 +11,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import it.unibo.oop.lab.iogui.BadIOGUI;
 
 /**
  * A very simple program using a graphical interface.
@@ -23,7 +22,10 @@ public final class SimpleGUI {
     /**
      * builds a new {@link SimpleGUI}.
      */
-    public SimpleGUI(Controller controller) {
+    /*
+     *@param controller
+    */
+    public SimpleGUI(final Controller controller) {
         /*
          * Make the frame half the resolution of the screen. This very method is
          * enough for a single screen setup. In case of multiple monitors, the
@@ -33,12 +35,12 @@ public final class SimpleGUI {
         final JTextField txt = new JTextField();
         panel.add(txt);
         final JButton button = new JButton("Save");
-        panel.add(button,BorderLayout.SOUTH);
+        panel.add(button, BorderLayout.SOUTH);
         button.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 try {
                     controller.writeOnCurrentFile(txt.getText());
-                }catch(Exception ex) {
+                } catch (Exception ex) {
                     ex.printStackTrace();
                 }
             }
@@ -63,8 +65,8 @@ public final class SimpleGUI {
         frame.setLocationByPlatform(true);
         frame.setVisible(true);
     }
-    
-    public static void main(String[] s) {
+
+    public static void main(final String[] s) {
         new SimpleGUI(new Controller());
      }
 

@@ -1,21 +1,19 @@
 package it.unibo.oop.lab.mvcio;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import it.unibo.oop.lab.iogui.BadIOGUI;
+
 
 /**
  * 
  */
 public class Controller {
     //This sets the default file
-    private File currentFile = new File( System.getProperty("user.home")
+    private File currentFile = new File(System.getProperty("user.home")
             + System.getProperty("file.separator") 
             + "Output.txt");
     /*
@@ -26,27 +24,27 @@ public class Controller {
      * 
      * 1) A method for setting a File as current file
      */
-     public void setFile(File file) {
+     public final void setFile(final File file) {
          this.currentFile = file;
      }
       /*
      * 2) A method for getting the current File
      */
-     public File getFile() {
+     public final File getFile() {
          return this.currentFile;
      }
      /*
      * 3) A method for getting the path (in form of String) of the current File
      */
-     public String getPath() {
+     public final String getPath() {
          return this.getFile().getPath();
      }
      /*
      * 4) A method that gets a String as input and saves its content on the current
      * file. This method may throw an IOException.
      */
-     public void writeOnCurrentFile(String s) {
-         try(BufferedWriter iBuffer = Files.newBufferedWriter(Paths.get(this.getPath()))) {
+     public final void writeOnCurrentFile(final String s) {
+         try (BufferedWriter iBuffer = Files.newBufferedWriter(Paths.get(this.getPath()))) {
              iBuffer.write(s);
          } catch (IOException e) {
              e.printStackTrace();

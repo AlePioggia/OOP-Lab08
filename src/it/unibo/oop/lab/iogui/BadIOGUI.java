@@ -8,7 +8,6 @@ import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.util.Random;
 
@@ -17,9 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import java.nio.*;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
@@ -48,10 +45,10 @@ public class BadIOGUI {
         final JPanel nPanel = new JPanel();
         BoxLayout bLayout = new BoxLayout(nPanel, BoxLayout.X_AXIS);
         nPanel.setLayout(bLayout);
-        canvas.add(nPanel,BorderLayout.CENTER);
+        canvas.add(nPanel, BorderLayout.CENTER);
         frame.setContentPane(canvas);
         final JButton write = new JButton("write");
-        nPanel.add(write,BorderLayout.CENTER);
+        nPanel.add(write, BorderLayout.CENTER);
         final JButton read = new JButton("read");
         nPanel.add(read);
         /*
@@ -76,9 +73,9 @@ public class BadIOGUI {
             }
         });
         read.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 System.out.println("Read button was pressed");
-                try(BufferedReader buffer = Files.newBufferedReader(Paths.get(PATH))) {
+                try (BufferedReader buffer = Files.newBufferedReader(Paths.get(PATH))) {
                     String line;
                     while ((line = buffer.readLine()) != null) {
                         System.out.println(line);

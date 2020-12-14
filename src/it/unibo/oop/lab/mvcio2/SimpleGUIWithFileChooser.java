@@ -1,12 +1,10 @@
 package it.unibo.oop.lab.mvcio2;
-
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -15,7 +13,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import it.unibo.oop.lab.mvcio.Controller;
-import it.unibo.oop.lab.mvcio.SimpleGUI;
 
 /*
      * TODO: Starting from the application in mvcioo:
@@ -46,18 +43,19 @@ public final class SimpleGUIWithFileChooser {
     private final JFrame frame = new JFrame();
     /**
      * builds a new {@link SimpleGUI}.
+     * @param controller
      */
-    public SimpleGUIWithFileChooser(Controller controller) {
+    public SimpleGUIWithFileChooser(final Controller controller) {
         final JPanel panel = new JPanel(new BorderLayout());
         final JTextField txt = new JTextField();
         panel.add(txt);
         final JButton button = new JButton("Save");
-        panel.add(button,BorderLayout.SOUTH);
+        panel.add(button, BorderLayout.SOUTH);
         button.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 try {
                     controller.writeOnCurrentFile(txt.getText());
-                }catch(Exception ex) {
+                } catch (Exception ex) {
                     ex.printStackTrace();
                 }
             }
@@ -75,7 +73,7 @@ public final class SimpleGUIWithFileChooser {
         * current selected file.
         * */
         browseText.setEditable(false);
-        bPanel.add(browseText,BorderLayout.CENTER);
+        bPanel.add(browseText, BorderLayout.CENTER);
         final JButton browseButton = new JButton("browse");
         browseButton.addActionListener(new ActionListener() {
         /*3) On press, the button should open a JFileChooser. The program should
@@ -86,11 +84,11 @@ public final class SimpleGUIWithFileChooser {
         * shown telling the user that an error has occurred (use
         * JOptionPane.showMessageDialog()).
         */
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 try {
                     final Controller c = new Controller();
                     final JFileChooser choice = new JFileChooser();
-                    if(choice.showSaveDialog(frame) == JFileChooser.APPROVE_OPTION) {
+                    if (choice.showSaveDialog(frame) == JFileChooser.APPROVE_OPTION) {
                         c.setFile(choice.getSelectedFile());
                         /*4) When in the controller a new File is set, also the graphical interface
                         * must reflect such change. Suggestion: do not force the controller to
@@ -100,21 +98,19 @@ public final class SimpleGUIWithFileChooser {
                         browseText.setText(choice.getSelectedFile().getPath());
                         //Checks if the change happened printing on console
                         System.out.println(c.getFile());
-                    }
-                    else if(choice.showSaveDialog(frame) == JFileChooser.CANCEL_OPTION){
+                    } else if (choice.showSaveDialog(frame) == JFileChooser.CANCEL_OPTION) {
                         System.out.println("Nothing happening");
+                    } else {
+                        JOptionPane.showMessageDialog(frame, JOptionPane.ERROR_MESSAGE);
                     }
-                    else {
-                        JOptionPane.showMessageDialog(frame,JOptionPane.ERROR_MESSAGE);
-                    }
-                }catch(Exception ex) {
+                } catch (Exception ex) {
                     ex.printStackTrace();
                 }
-                
+
             }
         });
-        bPanel.add(browseButton,BorderLayout.LINE_END);
-        panel.add(bPanel,BorderLayout.NORTH);
+        bPanel.add(browseButton, BorderLayout.LINE_END);
+        panel.add(bPanel, BorderLayout.NORTH);
         frame.setContentPane(panel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
          /*
@@ -135,8 +131,8 @@ public final class SimpleGUIWithFileChooser {
         frame.setLocationByPlatform(true);
         frame.setVisible(true);
     }
-    
-    public static void main(String[] s) {
+
+    public static void main(final String[] s) {
         new SimpleGUIWithFileChooser(new Controller());
      }
 
